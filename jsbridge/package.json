@@ -1,0 +1,31 @@
+{
+  "name": "@gdyfe/jsbridge",
+  "version": "1.0.0",
+  "author": "whzcorcd",
+  "license": "MIT",
+  "main": "esm/index.js",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "jsbridge",
+    "gdy"
+  ],
+  "scripts": {
+    "compile": "tsc",
+    "build": "tsc && rollup --config"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-typescript": "3.1.1",
+    "@types/node": "^14.6.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.29.0",
+    "tslib": "^2.0.1",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {}
+}
