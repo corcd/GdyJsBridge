@@ -22,19 +22,21 @@ var Core = (function (_super) {
         _this._dgtVerifyRandomStr = dgtVerifyRandomStr;
         if (isIOS()) {
             if (window.webkit && window.webkit.messageHandlers) {
-                _this._core = window.webkit.messageHandlers;
+                _this.__core = window.webkit.messageHandlers;
             }
-            if (!_this._core) {
+            if (!_this.__core) {
+                console.error('inject err');
                 return _this;
             }
             delete window.webkit.messageHandlers;
         }
         else {
-            _this._core = window._core;
-            if (!_this._core) {
+            _this.__core = window.__core;
+            console.log(_this.__core);
+            if (!_this.__core) {
                 return _this;
             }
-            delete window._core;
+            delete window.__core;
         }
         return _this;
     }
@@ -46,10 +48,10 @@ var Core = (function (_super) {
     };
     Core.prototype._doSendMessage = function (msgStr) {
         if (isIOS()) {
-            this._core._sendMessage.postMessage(msgStr);
+            this.__core._sendMessage.postMessage(msgStr);
         }
         else {
-            this._core._sendMessage(msgStr);
+            this.__core._sendMessage(msgStr);
         }
     };
     Core.prototype._sendMessage = function (msg) {

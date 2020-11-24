@@ -2,7 +2,7 @@
  * @Author: Whzcorcd
  * @Date: 2020-11-20 11:25:22
  * @LastEditors: Whzcorcd
- * @LastEditTime: 2020-11-23 17:53:28
+ * @LastEditTime: 2020-11-24 16:48:11
  * @Description: file content
  */
 import EventEmitter from './event'
@@ -21,7 +21,7 @@ class Core extends EventEmitter {
   // 全局随机验证字段
   private _dgtVerifyRandomStr: string = ''
 
-  public _core: any
+  public __core: any
 
   private constructor(dgtVerifyRandomStr: string) {
     super()
@@ -30,21 +30,23 @@ class Core extends EventEmitter {
     if (isIOS()) {
       // iOS 下使用 window.webkit.messageHandlers（WKWebkitView）
       if (window.webkit && window.webkit.messageHandlers) {
-        this._core = window.webkit.messageHandlers
+        this.__core = window.webkit.messageHandlers
       }
-      if (!this._core) {
+      if (!this.__core) {
         // TODO
+        console.error('inject err')
         return
       }
       delete window.webkit.messageHandlers
     } else {
       // 非 iOS 下使用系统全局变量（由 Webview 层定义）
-      this._core = window._core
-      if (!this._core) {
+      this.__core = window.__core
+      console.log(this.__core)
+      if (!this.__core) {
         // TODO
         return
       }
-      delete window._core
+      delete window.__core
     }
   }
 
@@ -61,9 +63,9 @@ class Core extends EventEmitter {
    */
   private _doSendMessage(msgStr: string): void {
     if (isIOS()) {
-      this._core._sendMessage.postMessage(msgStr)
+      this.__core._sendMessage.postMessage(msgStr)
     } else {
-      this._core._sendMessage(msgStr)
+      this.__core._sendMessage(msgStr)
     }
   }
 
